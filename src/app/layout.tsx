@@ -8,7 +8,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/providers";
 import { env } from "@/env.mjs";
-import { siteConfig } from "@/config/sites";
+import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
