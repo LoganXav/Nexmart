@@ -1,9 +1,4 @@
 
 export default function IndexPage() {
-    return (
-      <main className="">
-        Hiiiiiiiiiiiiiiiiiiiiiiiiii
-      </main>
-    );
-  }
-  
+  return <main className="">Hiiiiiiiiiiiiiiiiiiiiiiiiii</main>;
+}
