@@ -24,7 +24,7 @@ import { CartSheet } from "@/components/checkout/cart-sheet";
 import { MainNav } from "@/components/layouts/main-nav";
 import { MobileNav } from "@/components/layouts/mobile-nav";
 import { getUserEmail } from "@/lib/utils";
-import { User } from "@/types";
+import type { User } from "@clerk/nextjs/server"
 import { ProductsCommandMenu } from "@/components/products-command-menu";
 
 interface SiteHeaderProps {
@@ -36,7 +36,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
     user?.lastName?.charAt(0) ?? ""
   }`;
 
-  const email = getUserEmail(user) ?? "email@example.com";
+  const email = getUserEmail(user);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">

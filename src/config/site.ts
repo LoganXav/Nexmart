@@ -12,7 +12,7 @@ const links = {
 };
 
 export const siteConfig = {
-  name: "nexmart",
+  name: "Nexmart",
   description:
     "An open source e-commerce e-shop build with everything new in Next.js 13.",
   url: "",

@@ -1,16 +1,11 @@
 import { SiteFooter } from "@/components/layouts/site-footer"
 import { SiteHeader } from "@/components/layouts/site-header";
+import { currentUser } from "@clerk/nextjs";
 
 export default async function LobbyLayout({
   children,
 }: React.PropsWithChildren) {
-  const user = {
-    firstName: "Logan",
-    lastName: "X",
-    username: "lxgn",
-    imageUrl: "Segun",
-    email: "lxgn@example.com",
-  };
+  const user = await currentUser()
 
   return (
     <div className="relative flex min-h-screen flex-col">
