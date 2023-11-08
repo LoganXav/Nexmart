@@ -14,13 +14,19 @@ import {
 } from "@/components/ui/sheet";
 import { CartLineItems } from "@/components/checkout/cart-line-items";
 import { Icons } from "@/components/icons";
-import { CartLineItem } from "@/types";
+import { getCartAction } from "@/app/_actions/cart";
 
 export async function CartSheet() {
-  // DUMMY CART DATA
-  const itemCount = 5;
-  const cartLineItems = [] as CartLineItem[];
-  const cartTotal = 100;
+  const cartLineItems = await getCartAction();
+
+  const cartTotal = cartLineItems.reduce(
+    (total, item) => total + item.quantity * Number(item.price),
+    0
+  );
+  const itemCount = cartLineItems.reduce(
+    (total, item) => total + Number(item.quantity),
+    0
+  );
 
   return (
     <Sheet>

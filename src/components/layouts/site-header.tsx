@@ -24,7 +24,7 @@ import { CartSheet } from "@/components/checkout/cart-sheet";
 import { MainNav } from "@/components/layouts/main-nav";
 import { MobileNav } from "@/components/layouts/mobile-nav";
 import { getUserEmail } from "@/lib/utils";
-import type { User } from "@clerk/nextjs/server"
+import type { User } from "@clerk/nextjs/server";
 import { ProductsCommandMenu } from "@/components/products-command-menu";
 
 interface SiteHeaderProps {

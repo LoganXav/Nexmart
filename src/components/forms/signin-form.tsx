@@ -64,6 +64,8 @@ export function SignInForm() {
     })
   }
 
+  console.log(form)
+
   return (
     <Form {...form}>
       <form

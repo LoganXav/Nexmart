@@ -1,4 +1,6 @@
 import type { Icons } from "@/components/icons";
+import { cartItemSchema, cartLineItemSchema } from "@/lib/validations/cart";
+import { type z } from "zod";
 
 export interface NavItem {
   title: string;
@@ -33,19 +35,29 @@ export interface NavItemWithOptionalChildren extends NavItem {
 }
 
 export interface FooterItem {
-  title: string
+  title: string;
   items: {
-    title: string
-    href: string
-    external?: boolean
-  }[]
+    title: string;
+    href: string;
+    external?: boolean;
+  }[];
 }
 
 export type MainNavItem = NavItemWithOptionalChildren;
 
 export type SidebarNavItem = NavItemWithChildren;
 
-// DUMMY TYPES
+export interface StoredFile {
+  id: string;
+  name: string;
+  url: string;
+}
+
+export type CartItem = z.infer<typeof cartItemSchema>;
+
+export type CartLineItem = z.infer<typeof cartLineItemSchema>;
+
+//------> DUMMY TYPES
 
 export interface User {
   firstName: string;
@@ -54,26 +66,6 @@ export interface User {
   imageUrl: string;
   emailAddresses?: [{ id: number; emailAddress: string }];
   primaryEmailAddressId?: number;
-}
-
-export interface CartLineItem {
-  id: number;
-  name: string;
-  images?:
-    | {
-        id: string;
-        name: string;
-        url: string;
-      }[]
-    | null;
-  category: string;
-  subcategory?: string | null;
-  price: string;
-  inventory: number;
-  quantity: number;
-  storeId: number;
-  storeName?: string | null;
-  storeStripeAccountId?: string | null;
 }
 
 export interface Product {
@@ -89,9 +81,11 @@ export interface Product {
   category: string;
   subcategory?: string | null;
   price: string;
-  inventory: number;
-  quantity: number;
-  storeId: number;
+  inventory?: number | null;
+  quantity?: number | null;
+  storeId?: number | null;
   storeName?: string | null;
   storeStripeAccountId?: string | null;
 }
+
+//------>

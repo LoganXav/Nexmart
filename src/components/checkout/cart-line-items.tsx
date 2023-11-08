@@ -1,18 +1,18 @@
-import Image from "next/image"
-import type { CartLineItem } from "@/types"
-import { Slot } from "@radix-ui/react-slot"
+import Image from "next/image";
+import type { CartLineItem } from "@/types";
+import { Slot } from "@radix-ui/react-slot";
 
-import { cn, formatPrice } from "@/lib/utils"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
-// import { UpdateCart } from "@/components/checkout/update-cart"
-import { Icons } from "@/components/icons"
+import { cn, formatPrice } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { UpdateCart } from "@/components/checkout/update-cart";
+import { Icons } from "@/components/icons";
 
 interface CartLineItemsProps extends React.HTMLAttributes<HTMLDivElement> {
-  items: CartLineItem[]
-  isScrollable?: boolean
-  isEditable?: boolean
-  variant?: "default" | "minimal"
+  items: CartLineItem[];
+  isScrollable?: boolean;
+  isEditable?: boolean;
+  variant?: "default" | "minimal";
 }
 
 export function CartLineItems({
@@ -23,7 +23,7 @@ export function CartLineItems({
   className,
   ...props
 }: CartLineItemsProps) {
-  const Wrapper = isScrollable ? ScrollArea : Slot
+  const Wrapper = isScrollable ? ScrollArea : Slot;
 
   return (
     <Wrapper className="h-full">
@@ -94,8 +94,7 @@ export function CartLineItems({
                 </div>
               </div>
               {isEditable ? (
-                // <UpdateCart cartLineItem={item} /> 
-                ""
+                <UpdateCart cartLineItem={item} />
               ) : (
                 <div className="flex flex-col space-y-1 font-medium">
                   <span className="ml-auto line-clamp-1 text-sm">
@@ -114,5 +113,5 @@ export function CartLineItems({
         ))}
       </div>
     </Wrapper>
-  )
+  );
 }

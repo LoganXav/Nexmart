@@ -7,7 +7,9 @@ export const env = createEnv({
    * isn't built with invalid env vars.
    */
   server: {
+    DATABASE_URL: z.string(),
     NODE_ENV: z.enum(["development", "test", "production"]),
+    CLERK_SECRET_KEY: z.string(),
   },
   /**
    * Specify your client-side environment variables schema here. This way you can ensure the app
@@ -24,6 +26,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
       process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
