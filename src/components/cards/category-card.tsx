@@ -1,5 +1,8 @@
 import Link from "next/link";
+import { db } from "@/db";
+import { products } from "@/db/schema";
 import type { Category } from "@/types";
+import { eq, sql } from "drizzle-orm";
 
 import {
   Card,
@@ -14,6 +17,14 @@ interface CategoryCardProps {
 }
 
 export async function CategoryCard({ category }: CategoryCardProps) {
+  const productCount = await db
+    .select({
+      count: sql<number>`count(*)`.mapWith(Number),
+    })
+    .from(products)
+    .where(eq(products.category, category.title))
+    .execute()
+    .then((res) => res[0]?.count ?? 0);
   return (
     <Link
       aria-label={category.title}
@@ -29,7 +40,7 @@ export async function CategoryCard({ category }: CategoryCardProps) {
           <CardTitle className="text-xl capitalize text-zinc-200">
             {category.title}
           </CardTitle>
-          <CardDescription>999 products</CardDescription>
+          <CardDescription>{productCount} products</CardDescription>
         </CardContent>
       </Card>
     </Link>

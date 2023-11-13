@@ -25,6 +25,17 @@ export function formatPrice(
   }).format(Number(price));
 }
 
+export function toTitleCase(str: string) {
+  return str.replace(
+    /\w\S*/g,
+    (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase()
+  );
+}
+
+export function truncate(str: string, length: number) {
+  return str.length > length ? `${str.substring(0, length)}...` : str;
+}
+
 export function getUserEmail(user: User | null) {
   const email =
     user?.emailAddresses?.find((e) => e.id === user.primaryEmailAddressId)

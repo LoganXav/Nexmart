@@ -1,13 +1,29 @@
-import type { Category } from "@/types"
-import { MixIcon } from "@radix-ui/react-icons"
+import type { Category, Option } from "@/types";
+import { MixIcon } from "@radix-ui/react-icons";
 
-import { Icons } from "@/components/icons"
+import { Icons } from "@/components/icons";
 
-
+export const sortOptions = [
+  { label: "Date: Old to new", value: "createdAt.asc" },
+  {
+    label: "Date: New to old",
+    value: "createdAt.desc",
+  },
+  { label: "Price: Low to high", value: "price.asc" },
+  { label: "Price: High to low", value: "price.desc" },
+  {
+    label: "Alphabetical: A to Z",
+    value: "name.asc",
+  },
+  {
+    label: "Alphabetical: Z to A",
+    value: "name.desc",
+  },
+];
 
 export const productCategories = [
   {
-    title: "skateboards",
+    title: "games",
     image: "/images/skateboard-one.webp",
     icon: Icons.logo,
     subcategories: [
@@ -56,7 +72,7 @@ export const productCategories = [
     ],
   },
   {
-    title: "clothing",
+    title: "electronics",
     image: "/images/clothing-one.webp",
     icon: Icons.shirt,
     subcategories: [
@@ -88,7 +104,7 @@ export const productCategories = [
     ],
   },
   {
-    title: "shoes",
+    title: "wearables",
     image: "/images/shoe-one.webp",
     icon: Icons.footprints,
     subcategories: [
@@ -164,4 +180,20 @@ export const productCategories = [
       },
     ],
   },
-] satisfies Category[]
+] satisfies Category[];
+
+// looks for that category in the productCategories array, and if found, maps its subcategories to an array of Option objects.
+
+export function getSubcategories(category?: string): Option[] {
+  if (!category) return [];
+
+  const subcategories =
+    productCategories
+      .find((c) => c.title === category)
+      ?.subcategories.map((s) => ({
+        label: s.title,
+        value: s.slug,
+      })) ?? [];
+
+  return subcategories;
+}

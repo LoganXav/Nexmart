@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { useRouter } from "next/navigation"
-import { type Product } from "@/types"
-import { CircleIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons"
+import * as React from "react";
+import { useRouter } from "next/navigation";
+import { type Product } from "@/db/schema";
+import { CircleIcon, MagnifyingGlassIcon } from "@radix-ui/react-icons";
 
-import { productCategories } from "@/config/products"
-import { cn, isMacOs } from "@/lib/utils"
-import { useDebounce } from "@/hooks/use-debounce"
-import { Button } from "@/components/ui/button"
+import { productCategories } from "@/config/products";
+import { cn, isMacOs, catchError } from "@/lib/utils";
+import { useDebounce } from "@/hooks/use-debounce";
+import { Button } from "@/components/ui/button";
 import {
   CommandDialog,
   CommandEmpty,
@@ -16,63 +16,64 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command"
-import { Skeleton } from "@/components/ui/skeleton"
+} from "@/components/ui/command";
+import { Skeleton } from "@/components/ui/skeleton";
+import { filterProductsAction } from "@/app/_actions/product";
 
 interface ProductGroup {
-  category: Product["category"]
-  products: Pick<Product, "id" | "name" | "category">[]
+  category: Product["category"];
+  products: Pick<Product, "id" | "name" | "category">[];
 }
 
 export function ProductsCommandMenu() {
-  const router = useRouter()
-  const [open, setOpen] = React.useState(false)
-  const [query, setQuery] = React.useState("")
-  const debouncedQuery = useDebounce(query, 300)
-  const [data, setData] = React.useState<ProductGroup[] | null>(null)
-  const [isPending, startTransition] = React.useTransition()
+  const router = useRouter();
+  const [open, setOpen] = React.useState(false);
+  const [query, setQuery] = React.useState("");
+  const debouncedQuery = useDebounce(query, 300);
+  const [data, setData] = React.useState<ProductGroup[] | null>(null);
+  const [isPending, startTransition] = React.useTransition();
 
   React.useEffect(() => {
     if (debouncedQuery.length <= 0) {
-      setData(null)
-      return
+      setData(null);
+      return;
     }
 
-    // async function fetchData() {
-    //   try {
-    //     const data = await filterProductsAction(debouncedQuery)
-    //     setData(data)
-    //   } catch (err) {
-    //     catchError(err)
-    //   }
-    // }
+    async function fetchData() {
+      try {
+        const data = await filterProductsAction(debouncedQuery);
+        setData(data);
+      } catch (err) {
+        catchError(err);
+      }
+    }
 
-    // startTransition(fetchData)
+    startTransition(fetchData);
 
-    return () => setData(null)
-  }, [debouncedQuery])
+    return () => setData(null);
+  }, [debouncedQuery]);
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        setOpen((open) => !open)
+        e.preventDefault();
+        setOpen((open) => !open);
       }
-    }
-    window.addEventListener("keydown", handleKeyDown)
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [])
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const handleSelect = React.useCallback((callback: () => unknown) => {
-    setOpen(false)
-    callback()
-  }, [])
+    setOpen(false);
+    callback();
+  }, []);
 
   React.useEffect(() => {
     if (!open) {
-      setQuery("")
+      setQuery("");
     }
-  }, [open])
+  }, [open]);
 
   return (
     <>
@@ -123,7 +124,7 @@ export function ProductsCommandMenu() {
                   const CategoryIcon =
                     productCategories.find(
                       (category) => category.title === group.category
-                    )?.icon ?? CircleIcon
+                    )?.icon ?? CircleIcon;
 
                   return (
                     <CommandItem
@@ -139,7 +140,7 @@ export function ProductsCommandMenu() {
                       />
                       <span className="truncate">{item.name}</span>
                     </CommandItem>
-                  )
+                  );
                 })}
               </CommandGroup>
             ))
@@ -147,5 +148,5 @@ export function ProductsCommandMenu() {
         </CommandList>
       </CommandDialog>
     </>
-  )
+  );
 }

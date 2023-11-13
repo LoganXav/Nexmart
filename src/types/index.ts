@@ -1,4 +1,5 @@
 import type { Icons } from "@/components/icons";
+import { Product } from "@/db/schema";
 import { cartItemSchema, cartLineItemSchema } from "@/lib/validations/cart";
 import { type z } from "zod";
 
@@ -53,6 +54,12 @@ export interface StoredFile {
   url: string;
 }
 
+export interface Option {
+  label: string;
+  value: string;
+  icon?: React.ComponentType<{ className?: string }>;
+}
+
 export type CartItem = z.infer<typeof cartItemSchema>;
 
 export type CartLineItem = z.infer<typeof cartLineItemSchema>;
@@ -66,26 +73,6 @@ export interface User {
   imageUrl: string;
   emailAddresses?: [{ id: number; emailAddress: string }];
   primaryEmailAddressId?: number;
-}
-
-export interface Product {
-  id: number;
-  name: string;
-  images?:
-    | {
-        id: string;
-        name: string;
-        url: string;
-      }[]
-    | null;
-  category: string;
-  subcategory?: string | null;
-  price: string;
-  inventory?: number | null;
-  quantity?: number | null;
-  storeId?: number | null;
-  storeName?: string | null;
-  storeStripeAccountId?: string | null;
 }
 
 //------>

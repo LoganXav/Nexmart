@@ -27,3 +27,12 @@ export const productSchema = z.object({
     .nullable()
     .default(null),
 });
+
+export const getProductsSchema = z.object({
+  limit: z.number().default(10),
+  offset: z.number().default(0),
+  categories: z.string().optional().nullable(),
+  subcategories: z.string().optional().nullable(),
+  sort: z.string().optional().nullable(),
+  price_range: z.string().optional().nullable(),
+});

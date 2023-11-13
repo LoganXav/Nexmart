@@ -7,7 +7,6 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ProductCard } from "@/components/cards/product-card";
-import { Product } from "@/types";
 import { db } from "@/db";
 import { products } from "@/db/schema";
 
@@ -71,16 +70,18 @@ export default async function IndexPage() {
                 <ProductCard key={product.id} product={product} />
               ))
             ) : (
-              <div className="flex h-full flex-col items-center justify-center space-y-1 pt-10">
-                <Icons.product
-                  className="mb-4 h-16 w-16 text-muted-foreground"
-                  aria-hidden="true"
-                />
-                <div className="text-xl font-medium text-muted-foreground">
-                  No products found
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  Please try again later
+              <div className="w-full h-full flex items-center justify-center">
+                <div className="w-full flex h-full flex-col items-center justify-center space-y-1 pt-10">
+                  <Icons.product
+                    className="mb-4 h-16 w-16 text-muted-foreground"
+                    aria-hidden="true"
+                  />
+                  <div className="text-xl font-medium text-muted-foreground">
+                    No products found
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Please try again later
+                  </div>
                 </div>
               </div>
             )}
