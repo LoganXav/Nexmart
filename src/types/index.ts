@@ -1,6 +1,10 @@
 import type { Icons } from "@/components/icons";
 import { Product } from "@/db/schema";
-import { cartItemSchema, cartLineItemSchema } from "@/lib/validations/cart";
+import {
+  cartItemSchema,
+  cartLineItemSchema,
+  checkoutItemSchema,
+} from "@/lib/validations/cart";
 import { type z } from "zod";
 
 export interface NavItem {
@@ -63,6 +67,8 @@ export interface Option {
 export type CartItem = z.infer<typeof cartItemSchema>;
 
 export type CartLineItem = z.infer<typeof cartLineItemSchema>;
+
+export type CheckoutItem = z.infer<typeof checkoutItemSchema>;
 
 //------> DUMMY TYPES
 

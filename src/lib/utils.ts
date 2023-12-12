@@ -4,6 +4,7 @@ import type { User } from "@clerk/nextjs/server";
 import { isClerkAPIResponseError } from "@clerk/nextjs";
 import { toast } from "sonner";
 import * as z from "zod";
+import { env } from "@/env.mjs";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -76,4 +77,8 @@ export function isMacOs() {
   if (typeof window === "undefined") return false;
 
   return window.navigator.userAgent.includes("Mac");
+}
+
+export function absoluteUrl(path: string) {
+  return `${env.NEXT_PUBLIC_APP_URL}${path}`;
 }

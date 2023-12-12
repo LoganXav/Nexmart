@@ -34,3 +34,7 @@ export const deleteCartItemSchema = z.object({
 export const updateCartItemSchema = z.object({
   quantity: z.number().min(0).default(1),
 });
+
+export const checkoutItemSchema = cartItemSchema.extend({
+  price: z.number(),
+});

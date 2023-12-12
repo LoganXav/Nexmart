@@ -231,7 +231,7 @@ export function Products({
                   />
                 </div>
               ) : null}
-              {category ? (
+              {/* {category ? (
                 <div className="space-y-4">
                   <h3 className="text-sm font-medium tracking-wide text-foreground">
                     Subcategories
@@ -243,7 +243,7 @@ export function Products({
                     options={subcategories}
                   />
                 </div>
-              ) : null}
+              ) : null} */}
             </div>
             <div>
               <Separator className="my-4" />
