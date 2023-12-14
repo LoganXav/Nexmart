@@ -11,3 +11,8 @@ export const productsSearchParamsSchema = searchParamsSchema.extend({
   subcategories: z.string().optional(),
   price_range: z.string().optional(),
 });
+
+export const ordersSearchParamsSchema = searchParamsSchema.extend({
+  sort: z.string().optional().default("createdAt.desc"),
+  status: z.string().optional(),
+});

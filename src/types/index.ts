@@ -6,6 +6,7 @@ import {
   checkoutItemSchema,
 } from "@/lib/validations/cart";
 import { type z } from "zod";
+import type Stripe from "stripe";
 
 export interface NavItem {
   title: string;
@@ -69,6 +70,18 @@ export type CartItem = z.infer<typeof cartItemSchema>;
 export type CartLineItem = z.infer<typeof cartLineItemSchema>;
 
 export type CheckoutItem = z.infer<typeof checkoutItemSchema>;
+
+export type StripePaymentStatus = Stripe.PaymentIntent.Status;
+
+export interface DataTableSearchableColumn<TData> {
+  id: keyof TData;
+  title: string;
+}
+
+export interface DataTableFilterableColumn<TData>
+  extends DataTableSearchableColumn<TData> {
+  options: Option[];
+}
 
 //------> DUMMY TYPES
 

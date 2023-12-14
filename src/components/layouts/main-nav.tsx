@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import type { MainNavItem } from "@/types"
+import * as React from "react";
+import Link from "next/link";
+import type { MainNavItem } from "@/types";
 
-import { siteConfig } from "@/config/site"
-import { cn } from "@/lib/utils"
+import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,11 +14,11 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
-import { Icons } from "@/components/icons"
+} from "@/components/ui/navigation-menu";
+import { Icons } from "@/components/icons";
 
 interface MainNavProps {
-  items?: MainNavItem[]
+  items?: MainNavItem[];
 }
 
 export function MainNav({ items }: MainNavProps) {
@@ -73,14 +73,15 @@ export function MainNav({ items }: MainNavProps) {
           {items
             ?.filter((item) => item.title !== items[0]?.title)
             .map((item) =>
-              item?.items ? (
+              // item?.items ? (
+              false ? (
                 <NavigationMenuItem key={item.title}>
                   <NavigationMenuTrigger className="h-auto capitalize">
                     {item.title}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {item.items.map((item) => (
+                      {item?.items?.map((item) => (
                         <ListItem
                           key={item.title}
                           title={item.title}
@@ -109,7 +110,7 @@ export function MainNav({ items }: MainNavProps) {
         </NavigationMenuList>
       </NavigationMenu>
     </div>
-  )
+  );
 }
 
 const ListItem = React.forwardRef<
@@ -135,6 +136,6 @@ const ListItem = React.forwardRef<
         </Link>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = "ListItem";

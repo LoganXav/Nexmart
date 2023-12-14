@@ -26,6 +26,24 @@ export function formatPrice(
   }).format(Number(price));
 }
 
+export function formatDate(date: Date | string | number) {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(date));
+}
+
+export function formatId(id: number) {
+  return `#${id.toString().padStart(4, "0")}`;
+}
+
+export function toSentenceCase(str: string) {
+  return str
+    .replace(/([A-Z])/g, " $1")
+    .replace(/^./, (str) => str.toUpperCase());
+}
+
 export function toTitleCase(str: string) {
   return str.replace(
     /\w\S*/g,
