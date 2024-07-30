@@ -14,6 +14,9 @@ importers:
       '@clerk/themes':
         specifier: ^1.7.9
         version: 1.7.17(react@18.3.1)
+      '@clerk/types':
+        specifier: ^4.9.1
+        version: 4.9.1
       '@hookform/resolvers':
         specifier: ^3.3.2
         version: 3.9.0(react-hook-form@7.52.1(react@18.3.1))
@@ -221,6 +224,10 @@ packages:
   '@clerk/types@3.65.2':
     resolution: {integrity: sha512-MX56SpyjHvKi5ZbLSkINOOecFXR+fzRqa6tHlXry7sNDgemU/0UCWn2KwxyO+/O3QspQPe0m8vqkvP53iGYw/Q==}
     engines: {node: '>=14'}
+
+  '@clerk/types@4.9.1':
+    resolution: {integrity: sha512-fCmqzPBFh0rH9TlUVPpvPW225DtGJDuCv5GecwuuzD8hcgwGetTfRSDRNl5Dub5aJuqYWGQQCCnKfnfCrhZvrA==}
+    engines: {node: '>=18.17.0'}
 
   '@esbuild-kit/core-utils@3.3.2':
     resolution: {integrity: sha512-sPRAnw9CdSsRmEtnsl2WXWdyquogVpB3yZ3dgwJfe8zrOzTsV7cJvmwrKVa+0ma5BoiGJ+BoqkMvawbayKUsqQ==}
@@ -3341,6 +3348,10 @@ snapshots:
       tslib: 2.4.1
 
   '@clerk/types@3.65.2':
+    dependencies:
+      csstype: 3.1.1
+
+  '@clerk/types@4.9.1':
     dependencies:
       csstype: 3.1.1
 
