@@ -1,6 +1,6 @@
 # Nexmart
 
-Welcome to the **Nexmart**! This repository hosts an ecommerce application built eith with nextjs.
+Welcome to the **Nexmart**. This repository hosts an ecommerce application built with nextjs.
 
 ## Technologies used
 
