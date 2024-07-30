@@ -45,7 +45,6 @@
     "cmdk": "^0.2.0",
     "drizzle-orm": "^0.29.5",
     "embla-carousel-react": "^8.0.0-rc14",
-    "mysql2": "^3.6.3",
     "next": "^14.0.0",
     "next-themes": "^0.2.1",
     "postgres": "^3.4.4",
