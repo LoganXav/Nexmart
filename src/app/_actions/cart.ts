@@ -40,9 +40,7 @@ export async function getCartAction(): Promise<CartLineItem[]> {
     .execute()
     .then((items) => {
       return items.map((item) => {
-        const quantity = cart?.items?.find(
-          (cartItem) => cartItem.productId === item.id
-        )?.quantity;
+        const quantity = cart?.items?.find((cartItem) => cartItem.productId === item.id)?.quantity;
 
         return {
           ...item,
@@ -54,9 +52,7 @@ export async function getCartAction(): Promise<CartLineItem[]> {
   return cartLineItems;
 }
 
-export async function addToCartAction(
-  rawInput: z.infer<typeof cartItemSchema>
-) {
+export async function addToCartAction(rawInput: z.infer<typeof cartItemSchema>) {
   // VALIDATIONG THE INPUT FROM THE ADD ACTION
   const input = cartItemSchema.parse(rawInput);
 
@@ -79,12 +75,16 @@ export async function addToCartAction(
   const cookieStore = cookies();
 
   const cartId = cookieStore.get("cartId")?.value;
-  if (!cartId) {
-    const cart = await db.insert(carts).values({
-      items: [input],
-    });
 
-    cookieStore.set("cartId", String(cart.insertId));
+  if (!cartId) {
+    const cart = await db
+      .insert(carts)
+      .values({
+        items: [input],
+      })
+      .returning();
+
+    cookieStore.set("cartId", String(cart[0].id));
 
     revalidatePath("/");
     return;
@@ -111,19 +111,20 @@ export async function addToCartAction(
   if (cart.closed) {
     await db.delete(carts).where(eq(carts.id, Number(cartId)));
 
-    const newCart = await db.insert(carts).values({
-      items: [input],
-    });
+    const newCart = await db
+      .insert(carts)
+      .values({
+        items: [input],
+      })
+      .returning();
 
-    cookieStore.set("cartId", String(newCart.insertId));
+    cookieStore.set("cartId", String(newCart[0].id));
 
     revalidatePath("/");
     return;
   }
   // CHECK IF THE PRODUCT ADDED TO CART IS IN THE CART
-  const cartItem = cart.items?.find(
-    (item) => item.productId === input.productId
-  );
+  const cartItem = cart.items?.find((item) => item.productId === input.productId);
 
   if (cartItem) {
     cartItem.quantity = cartItem.quantity += input.quantity;
@@ -142,9 +143,7 @@ export async function addToCartAction(
   revalidatePath("/");
 }
 
-export async function updateCartItemAction(
-  rawInput: z.infer<typeof cartItemSchema>
-) {
+export async function updateCartItemAction(rawInput: z.infer<typeof cartItemSchema>) {
   const input = cartItemSchema.parse(rawInput);
 
   const cartId = cookies().get("cartId")?.value;
@@ -165,16 +164,13 @@ export async function updateCartItemAction(
     throw new Error("Cart not found, please try again.");
   }
 
-  const cartItem = cart.items?.find(
-    (item) => item.productId === input.productId
-  );
+  const cartItem = cart.items?.find((item) => item.productId === input.productId);
   if (!cartItem) {
     throw new Error("CartItem not found, please try again.");
   }
 
   if (input.quantity === 0) {
-    cart.items =
-      cart.items?.filter((item) => item.productId !== input.productId) ?? [];
+    cart.items = cart.items?.filter((item) => item.productId !== input.productId) ?? [];
   } else {
     cartItem.quantity = input.quantity;
   }
@@ -189,9 +185,7 @@ export async function updateCartItemAction(
   revalidatePath("/");
 }
 
-export async function deleteCartItemAction(
-  rawInput: z.infer<typeof deleteCartItemSchema>
-) {
+export async function deleteCartItemAction(rawInput: z.infer<typeof deleteCartItemSchema>) {
   const input = deleteCartItemSchema.parse(rawInput);
 
   const cartId = cookies().get("cartId")?.value;
@@ -210,8 +204,7 @@ export async function deleteCartItemAction(
 
   if (!cart) return;
 
-  cart.items =
-    cart.items?.filter((item) => item.productId !== input.productId) ?? [];
+  cart.items = cart.items?.filter((item) => item.productId !== input.productId) ?? [];
 
   await db
     .update(carts)

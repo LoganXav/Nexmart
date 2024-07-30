@@ -2,31 +2,10 @@
 
 import * as React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import {
-  flexRender,
-  getCoreRowModel,
-  getFacetedRowModel,
-  getFacetedUniqueValues,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-  type ColumnDef,
-  type ColumnFiltersState,
-  type PaginationState,
-  type SortingState,
-  type VisibilityState,
-} from "@tanstack/react-table";
+import { flexRender, getCoreRowModel, getFacetedRowModel, getFacetedUniqueValues, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, type ColumnDef, type ColumnFiltersState, type PaginationState, type SortingState, type VisibilityState } from "@tanstack/react-table";
 import { DataTableFilterableColumn, DataTableSearchableColumn } from "@/types";
 import { useDebounce } from "@/hooks/use-debounce";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
 
@@ -40,15 +19,7 @@ interface DataTableProps<TData, TValue> {
   deleteRowsAction?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-export function DataTable({
-  columns,
-  data,
-  pageCount,
-  filterableColumns = [],
-  searchableColumns = [],
-  newRowLink,
-  deleteRowsAction,
-}: DataTableProps<TData, TValue>) {
+export function DataTable({ columns, data, pageCount, filterableColumns = [], searchableColumns = [], newRowLink, deleteRowsAction }: DataTableProps<any, any>) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -56,8 +27,7 @@ export function DataTable({
   // Search params
   const page = searchParams?.get("page") ?? "1";
   const pageAsNumber = Number(page);
-  const fallbackPage =
-    isNaN(pageAsNumber) || pageAsNumber < 1 ? 1 : pageAsNumber;
+  const fallbackPage = isNaN(pageAsNumber) || pageAsNumber < 1 ? 1 : pageAsNumber;
   const per_page = searchParams?.get("per_page") ?? "10";
   const perPageAsNumber = Number(per_page);
   const fallbackPerPage = isNaN(perPageAsNumber) ? 10 : perPageAsNumber;
@@ -84,18 +54,14 @@ export function DataTable({
 
   //   Table states
   const [rowSelection, setRowSelection] = React.useState({});
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
   //   Server side Pagination
-  const [{ pageIndex, pageSize }, setPagination] =
-    React.useState<PaginationState>({
-      pageIndex: fallbackPage - 1,
-      pageSize: fallbackPerPage,
-    });
+  const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({
+    pageIndex: fallbackPage - 1,
+    pageSize: fallbackPerPage,
+  });
 
   const pagination = React.useMemo(
     () => ({
@@ -178,10 +144,7 @@ export function DataTable({
     }
 
     for (const key of searchParams.keys()) {
-      if (
-        searchableColumns.find((column) => column.id === key) &&
-        !debouncedSearchableColumnFilters.find((column) => column.id === key)
-      ) {
+      if (searchableColumns.find((column) => column.id === key) && !debouncedSearchableColumnFilters.find((column) => column.id === key)) {
         router.push(
           `${pathname}?${createQueryString({
             page: 1,
@@ -212,10 +175,7 @@ export function DataTable({
     }
 
     for (const key of searchParams.keys()) {
-      if (
-        filterableColumns.find((column) => column.id === key) &&
-        !filterableColumnFilters.find((column) => column.id === key)
-      ) {
+      if (filterableColumns.find((column) => column.id === key) && !filterableColumnFilters.find((column) => column.id === key)) {
         router.push(
           `${pathname}?${createQueryString({
             page: 1,
@@ -260,13 +220,7 @@ export function DataTable({
 
   return (
     <div className="w-full space-y-3 overflow-auto">
-      <DataTableToolbar
-        table={table}
-        filterableColumns={filterableColumns}
-        searchableColumns={searchableColumns}
-        newRowLink={newRowLink}
-        deleteRowsAction={deleteRowsAction}
-      />
+      <DataTableToolbar table={table} filterableColumns={filterableColumns} searchableColumns={searchableColumns} newRowLink={newRowLink} deleteRowsAction={deleteRowsAction} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -275,12 +229,7 @@ export function DataTable({
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id} className="whitespace-nowrap">
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -290,26 +239,15 @@ export function DataTable({
           <TableBody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
+                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No orders.
                 </TableCell>
               </TableRow>

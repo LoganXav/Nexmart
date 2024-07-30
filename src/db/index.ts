@@ -17,7 +17,7 @@ export const drizzleClient = (datasourceUrl: string | undefined) => {
 
   const client = () => {
     if (process.env.SERVERLESS_DRIVER) {
-      const pool = new Pool({ connectionString });
+      const pool: any = new Pool({ connectionString });
       return drizzle(pool, { schema });
     }
 

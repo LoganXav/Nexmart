@@ -16,9 +16,7 @@ export async function getOrderLineItemsAction(
   }
 ): Promise<CartLineItem[]> {
   try {
-    const safeParsedItems = z
-      .array(checkoutItemSchema)
-      .safeParse(JSON.parse(input.items ?? "[]"));
+    const safeParsedItems = z.array(checkoutItemSchema).safeParse(JSON.parse(input.items ?? "[]"));
 
     if (!safeParsedItems.success) {
       throw new Error("Could not parse items.");
@@ -46,9 +44,7 @@ export async function getOrderLineItemsAction(
       .execute()
       .then((items) => {
         return items.map((item) => {
-          const quantity = safeParsedItems.data.find(
-            (checkoutItem) => checkoutItem.productId === item.id
-          )?.quantity;
+          const quantity = safeParsedItems.data.find((checkoutItem) => checkoutItem.productId === item.id)?.quantity;
 
           return {
             ...item,
@@ -83,30 +79,30 @@ export async function getOrderLineItemsAction(
       // Create new address in DB
       const stripeAddress = input.paymentIntent.shipping?.address;
 
-      const newAddress = await db.insert(addresses).values({
-        line1: stripeAddress?.line1,
-        line2: stripeAddress?.line2,
-        city: stripeAddress?.city,
-        state: stripeAddress?.state,
-        country: stripeAddress?.country,
-        postalCode: stripeAddress?.postal_code,
-      });
+      const newAddress = await db
+        .insert(addresses)
+        .values({
+          line1: stripeAddress?.line1,
+          line2: stripeAddress?.line2,
+          city: stripeAddress?.city,
+          state: stripeAddress?.state,
+          country: stripeAddress?.country,
+          postalCode: stripeAddress?.postal_code,
+        })
+        .returning();
 
-      if (!newAddress.insertId) throw new Error("No address created.");
+      if (!newAddress[0].id) throw new Error("No address created.");
 
       // Create new order in db
       await db.insert(orders).values({
         items: input.items as unknown as CheckoutItem[],
-        quantity: safeParsedItems.data.reduce(
-          (acc, item) => acc + item.quantity,
-          0
-        ),
+        quantity: safeParsedItems.data.reduce((acc, item) => acc + item.quantity, 0),
         amount: String(Number(input.paymentIntent.amount) / 100),
         stripePaymentIntentId: input.paymentIntent.id,
         stripePaymentIntentStatus: input.paymentIntent.status,
         name: input.paymentIntent.shipping?.name,
         email: input.paymentIntent.receipt_email,
-        addressId: Number(newAddress.insertId),
+        addressId: Number(newAddress[0].id),
       });
 
       // Update product inventory in db

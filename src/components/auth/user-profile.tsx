@@ -5,7 +5,7 @@ import { dark } from "@clerk/themes";
 import { type Theme } from "@clerk/types";
 import { useTheme } from "next-themes";
 
-const appearance: Theme = {
+const appearance: any = {
   baseTheme: undefined,
   variables: {
     borderRadius: "0.25rem",
