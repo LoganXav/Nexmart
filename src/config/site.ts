@@ -1,20 +1,17 @@
 export type SiteConfig = typeof siteConfig;
 
-import type { FooterItem } from "@/types"
-
+import type { FooterItem } from "@/types";
 
 const links = {
-  twitter: "https://twitter.com",
-  github: "https://github.com",
-  githubAccount: "https://github.com",
-  discord: "https://discord.com/users",
-  calDotCom: "https://cal.com",
+  twitter: "https://twitter.com/ssegun_",
+  github: "https://github.com/LoganXav/Nexmart",
+  githubAccount: "https://github.com/LoganXav",
+  linkedIn: "https://ng.linkedin.com/in/logan10927",
 };
 
 export const siteConfig = {
   name: "Nexmart",
-  description:
-    "An open source e-commerce e-shop build with everything new in Next.js 13.",
+  description: "An open source e-commerce e-shop build with everything new in Next.js 13.",
   url: "",
   ogImage: "",
   links,
@@ -55,33 +52,33 @@ export const siteConfig = {
         },
       ],
     },
+    // {
+    //   title: "Help",
+    //   items: [
+    //     {
+    //       title: "About",
+    //       href: "/about",
+    //       external: false,
+    //     },
+    //     {
+    //       title: "Contact",
+    //       href: "/contact",
+    //       external: false,
+    //     },
+    //     {
+    //       title: "Terms",
+    //       href: "/terms",
+    //       external: false,
+    //     },
+    //     {
+    //       title: "Privacy",
+    //       href: "/privacy",
+    //       external: false,
+    //     },
+    //   ],
+    // },
     {
-      title: "Help",
-      items: [
-        {
-          title: "About",
-          href: "/about",
-          external: false,
-        },
-        {
-          title: "Contact",
-          href: "/contact",
-          external: false,
-        },
-        {
-          title: "Terms",
-          href: "/terms",
-          external: false,
-        },
-        {
-          title: "Privacy",
-          href: "/privacy",
-          external: false,
-        },
-      ],
-    },
-    {
-      title: "Social",
+      title: "My Socials",
       items: [
         {
           title: "Twitter",
@@ -94,13 +91,8 @@ export const siteConfig = {
           external: true,
         },
         {
-          title: "Discord",
-          href: links.discord,
-          external: true,
-        },
-        {
-          title: "cal.com",
-          href: links.calDotCom,
+          title: "LinkedIn",
+          href: links.linkedIn,
           external: true,
         },
       ],

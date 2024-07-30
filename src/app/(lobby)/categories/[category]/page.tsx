@@ -3,11 +3,7 @@ import { type Product } from "@/db/schema";
 import { env } from "@/env.mjs";
 
 import { toTitleCase } from "@/lib/utils";
-import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderHeading,
-} from "@/components/page-header";
+import { PageHeader, PageHeaderDescription, PageHeaderHeading } from "@/components/page-header";
 import { Products } from "@/components/products";
 import { Shell } from "@/components/shells/shell";
 import { getProductsAction } from "@/app/_actions/product";
@@ -29,10 +25,7 @@ export function generateMetadata({ params }: CategoryPageProps): Metadata {
   };
 }
 
-export default async function CategoryPage({
-  params,
-  searchParams,
-}: CategoryPageProps) {
+export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
   const { category } = params;
   const { page, per_page, sort, subcategories, price_range } = searchParams;
 
@@ -53,22 +46,11 @@ export default async function CategoryPage({
 
   return (
     <Shell>
-      <PageHeader
-        id="category-page-header"
-        aria-labelledby="category-page-header-heading"
-      >
+      <PageHeader id="category-page-header" aria-labelledby="category-page-header-heading">
         <PageHeaderHeading size="sm">{toTitleCase(category)}</PageHeaderHeading>
-        <PageHeaderDescription size="sm">
-          {`Buy ${category} from the best stores`}
-        </PageHeaderDescription>
+        <PageHeaderDescription size="sm">{`Buy ${category} from the best stores`}</PageHeaderDescription>
       </PageHeader>
-      <Products
-        id="category-page-products"
-        aria-labelledby="category-page-products-heading"
-        products={productsTransaction.items}
-        pageCount={pageCount}
-        category={category}
-      />
+      <Products id="category-page-products" aria-labelledby="category-page-products-heading" products={productsTransaction.items} pageCount={pageCount} category={category} />
     </Shell>
   );
 }

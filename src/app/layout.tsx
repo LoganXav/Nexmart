@@ -9,7 +9,6 @@ import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/providers";
 import { env } from "@/env.mjs";
 import { siteConfig } from "@/config/site";
-
 import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
@@ -19,17 +18,7 @@ export const metadata: Metadata = {
     template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
-  keywords: [
-    "Next.js",
-    "React",
-    "Tailwind CSS",
-    "Server Components",
-    "Server Actions",
-    "Skateshop",
-    "Skateboard",
-    "Skateboarding",
-    "Kickflip",
-  ],
+  keywords: ["Next.js", "React", "Tailwind CSS", "Server Components", "Server Actions", "Skateshop", "Skateboard", "Skateboarding", "Kickflip"],
   authors: [
     {
       name: "lxgn",
@@ -66,20 +55,8 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
     <>
       <ClerkProvider>
         <html lang="en" suppressHydrationWarning>
-          <body
-            className={cn(
-              "min-h-screen bg-background font-sans antialiased",
-              fontSans.variable,
-              fontMono.variable,
-              fontHeading.variable
-            )}
-          >
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
+          <body className={cn("min-h-screen bg-background font-sans antialiased", fontSans.variable, fontMono.variable, fontHeading.variable)}>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
               {children}
               <TailwindIndicator />
             </ThemeProvider>

@@ -39,16 +39,11 @@ export function formatId(id: number) {
 }
 
 export function toSentenceCase(str: string) {
-  return str
-    .replace(/([A-Z])/g, " $1")
-    .replace(/^./, (str) => str.toUpperCase());
+  return str.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase());
 }
 
-export function toTitleCase(str: string) {
-  return str.replace(
-    /\w\S*/g,
-    (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase()
-  );
+export function toTitleCase(str: string | null) {
+  return str?.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.slice(1).toLowerCase());
 }
 
 export function truncate(str: string, length: number) {
@@ -56,9 +51,7 @@ export function truncate(str: string, length: number) {
 }
 
 export function getUserEmail(user: User | null) {
-  const email =
-    user?.emailAddresses?.find((e) => e.id === user.primaryEmailAddressId)
-      ?.emailAddress ?? "";
+  const email = user?.emailAddresses?.find((e) => e.id === user.primaryEmailAddressId)?.emailAddress ?? "";
 
   return email;
 }
