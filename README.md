@@ -12,3 +12,27 @@ Welcome to the **Nexmart**. This repository hosts an ecommerce application built
 - NeonDB: Database
 - Drizzle: ORM
 - Zod: Validation
+
+## Getting Started
+
+To set up Nexmart locally, follow these steps:
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/LoganXav/Nextmart.git
+   ```
+
+2. **Install dependencies**:
+
+   ```bash
+   pnpm install
+   ```
+
+3. **Start the server**:
+
+   ```bash
+   pnpm run dev
+   ```
+
+   Set environment variables in .env file based on both `.env.example`
