@@ -21,11 +21,11 @@ export const metadata: Metadata = {
   keywords: ["Next.js", "React", "Tailwind CSS", "Server Components", "Server Actions", "Skateshop", "Skateboard", "Skateboarding", "Kickflip"],
   authors: [
     {
-      name: "lxgn",
-      url: "https://github.com/lxgn",
+      name: "Sogbesan Timilehin",
+      url: "https://github.com/LoganXav",
     },
   ],
-  creator: "lxgn",
+  creator: "Sogbesan Timilehin",
   // themeColor: [
   //   { media: "(prefers-color-scheme: light)", color: "white" },
   //   { media: "(prefers-color-scheme: dark)", color: "black" },

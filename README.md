@@ -4,7 +4,7 @@ Welcome to the **Nexmart**. This repository hosts an ecommerce application built
 
 ## Technologies used
 
-- Nextjs: Frontend Framework
+- Nextjs: Fullstack Framework
 - Typescript: Static Typing
 - Tailwind: Styling
 - Shadcn: Components
