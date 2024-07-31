@@ -8,7 +8,7 @@ Welcome to the **Nexmart**. This repository hosts an ecommerce application built
 - Typescript: Static Typing
 - Tailwind: Styling
 - Shadcn: Components
-- Clert: Authentication
+- Clerk: Authentication
 - NeonDB: Database
 - Drizzle: ORM
 - Zod: Validation
