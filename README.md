@@ -20,16 +20,22 @@ To set up Nexmart locally, follow these steps:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/LoganXav/Nextmart.git
+   git clone https://github.com/LoganXav/Nexmart.git
    ```
 
-2. **Install dependencies**:
+2. **Clone the repository**:
+
+   ```bash
+   cd Nexmart
+   ```
+
+3. **Install dependencies**:
 
    ```bash
    pnpm install
    ```
 
-3. **Start the server**:
+4. **Start the server**:
 
    ```bash
    pnpm run dev
